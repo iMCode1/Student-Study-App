@@ -24,9 +24,6 @@ jobs:
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v4.1.0@v1
 
-      - name: Setup Kotlin
-        uses: fwilhe2/setup-kotlin@0.2.0
-
       - name : Build with Gradle
         run : ./gradlew build
 
