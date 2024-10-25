@@ -1,0 +1,56 @@
+name: KTStudyAppBuild
+on:
+  pull_request :
+    branches: [ main ]
+  push :
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on : ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+
+      - name: Setup Android SDK Tools
+        uses: android-actions/setup-android@v3.2.1
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4.5.0
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v4.1.0@v1
+
+      - name: Setup Kotlin
+        uses: fwilhe2/setup-kotlin@0.2.0
+
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name : Build with Gradle
+        run : ./gradlew build
+
+      - name: Run database migrations (optional)
+        run: |
+          echo "Running database migrations..."
+          # Include any database migration setup or test data insertion if needed.
+          # This is usually handled in the Room database setup within the app code.
+
+      - name: Run tests
+        run: ./gradlew test
+
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v4.4.3
+        with:
+          name: KTStudyApp.apk
+          path: app/build/outputs/apk/debug/app-debug.apk
+
+
