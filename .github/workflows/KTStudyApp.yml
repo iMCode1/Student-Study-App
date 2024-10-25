@@ -27,22 +27,8 @@ jobs:
       - name: Setup Kotlin
         uses: fwilhe2/setup-kotlin@0.2.0
 
-      - name: Cache Gradle dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-
       - name : Build with Gradle
         run : ./gradlew build
-
-      - name: Run database migrations (optional)
-        run: |
-          echo "Running database migrations..."
-          # Include any database migration setup or test data insertion if needed.
-          # This is usually handled in the Room database setup within the app code.
 
       - name: Run tests
         run: ./gradlew test
