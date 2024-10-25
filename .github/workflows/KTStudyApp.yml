@@ -21,9 +21,6 @@ jobs:
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v4.1.0
 
-      - name: Setup Kotlin
-        uses: actions/setup-kotlin@0.2.0
-
       - name: Cache Gradle dependencies
         uses: actions/cache@v2
         with:
