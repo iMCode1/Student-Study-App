@@ -17,11 +17,25 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContent {
-            StudentStudyAppTheme {
+        setContentView(R.layout.activity_quiz)
+        }
 
+    fun gradeQuiz(quiz: Quiz,answers: List<String>, selections: List<String>):Int{
+        var score=0
+        var total=answers.size
+        //get quiz from database using API, get questions relating to said quiz,
+        // use a loop to put them in a list, present
+        // questions in order of ID , as well as the 3 options, capture the user's selection
+        for ( i in answers.indices){
+            if (answers[i]==selections[i]){
+                score++
             }
         }
+return score
+    }
+
+            
+        
     }
 }
 
