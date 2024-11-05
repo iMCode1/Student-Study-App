@@ -25,6 +25,6 @@ object RetrofitInstance {
         .client(client)
         .build()
 
-    val api: GetQuiz = retrofit.create(GetQuiz::class.java)
+    val api: APIservice = retrofit.create(APIservice::class.java)
 
 }

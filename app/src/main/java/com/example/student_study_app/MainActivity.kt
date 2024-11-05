@@ -36,10 +36,12 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             try {
                 binding.progressBar.visibility = View.VISIBLE
-                val response = RetrofitInstance.api.GetQuiz()
+                val response = RetrofitInstance.api.getLeaderboard(2)
                 if (response.isSuccessful) {
-                    response.body()?.let { QuizAPI ->
-                        displayProducts(QuizAPI)
+                    val leaderboard = response.body()
+                    leaderboard?.let {
+                        // Process the leaderboard data
+                        println("Leaderboard: $it")
                     }
                 } else {
                     binding.textError.text = "Error: ${response.code()}"
