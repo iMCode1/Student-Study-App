@@ -4,19 +4,13 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.ListView
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.lifecycleScope
+import com.example.student_study_app.API.RetrofitInstance
 import com.example.student_study_app.databinding.ActivityMainBinding
+import com.example.student_study_app.models.QuizAPI
 import com.example.student_study_app.ui.theme.StudentStudyAppTheme
 import kotlinx.coroutines.launch
 
@@ -65,6 +59,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<ListView>(R.id.listView).adapter = adapter
         binding.listView.adapter = adapter
     }
+
 
 }
 

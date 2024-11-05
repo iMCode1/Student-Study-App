@@ -1,4 +1,4 @@
-package com.example.student_study_app
+package com.example.student_study_app.models
 
 data class RegisterUserRequest(
     val email: String,
