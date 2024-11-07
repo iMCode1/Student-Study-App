@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
+    android:background="#FF0000"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -22,9 +23,9 @@
         android:visibility="gone" />
 
     <ListView
-        android:background="#4CAF50"
         android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="#4CAF50" />
 
 </LinearLayout>
