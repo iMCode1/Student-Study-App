@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Internet Permission -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!-- Application Tag -->
     <application
         android:name="com.studyappdatabase.StudyApp"
         android:allowBackup="true"
@@ -12,6 +16,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.StudyAppDatabase"
-        tools:targetApi="31" />
+        tools:targetApi="31">
+
+        <!-- Main Activity Declaration -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.StudentStudyApp">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
 
 </manifest>
