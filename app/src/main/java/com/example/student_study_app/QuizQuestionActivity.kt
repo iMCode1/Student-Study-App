@@ -16,6 +16,7 @@ import com.example.student_study_app.API.RetrofitInstance
 import com.example.student_study_app.databinding.ActivityMainBinding
 import com.example.student_study_app.models.QuizQuestionsAPI
 import android.graphics.Typeface
+import android.os.CountDownTimer
 import com.example.student_study_app.APIutils.QuizDisplayer
 import kotlinx.coroutines.launch
 
@@ -27,9 +28,8 @@ class QuizQuestionActivity:AppCompatActivity() {
     private var selectedAlternativeIndex = -1;
     private var isAnswerChecked = false;
     private var totalScore = 0;
-
+    private var tvQuizScore: TextView? =null
     private var tvQuestion: TextView? = null
-    private var ivImage: ImageView? = null
     private var progressBar: ProgressBar? = null
     private var tvProgress: TextView? = null
     private var btnSubmit: Button? = null
@@ -40,9 +40,9 @@ class QuizQuestionActivity:AppCompatActivity() {
         setContentView(R.layout.activity_quiz_questions)
         binding = ActivityMainBinding.inflate(layoutInflater)
         tvQuestion = findViewById(R.id.tvQuestion)
-        ivImage = findViewById(R.id.ivImage)
         progressBar = findViewById(R.id.progressBar)
         tvProgress = findViewById(R.id.tvProgress)
+        tvQuizScore = findViewById(R.id.tvScore)
         btnSubmit = findViewById(R.id.btnSubmit)
         tvAlternatives = arrayListOf(
             findViewById(R.id.optionOne),
@@ -51,12 +51,14 @@ class QuizQuestionActivity:AppCompatActivity() {
             findViewById(R.id.optionFour),
         )
         lifecycleScope.launch {
+            timer.start()
             try {
                 val response = RetrofitInstance.api.GetQuestions(3)
                 if (response.isSuccessful) {
                     response.body()?.let { products ->
                         questionsList = products
                     }
+
                     updateQuestion()
                 } else {
                     binding.textError.text = "Error: ${response.code()}"
@@ -132,11 +134,22 @@ class QuizQuestionActivity:AppCompatActivity() {
         }
 
     }
+    val timer = object : CountDownTimer(10000, 1000) {
+        override fun onTick(millisUntilFinished: Long) {
+            // Called every second
+            tvQuizScore?.text = (millisUntilFinished / 1000).toString()
+        }
 
+        override fun onFinish() {
+            // Called when the timer finishes
+            tvQuizScore?.text = "Timer finished!"
+        }
+    }
     //@SuppressLint("SetTextI18n")
     private fun updateQuestion() {//This function updates the onscreen quiz options
         defaultAlternativesView()
-
+        progressBar?.max = questionsList?.size!!
+      //  tvQuizScore?.text = "Score: $totalScore"
         // Render Question Text
         tvQuestion?.text = questionsList?.get(currentQuestionIndex)?.questionTitle
         // progressBar
@@ -190,3 +203,6 @@ class QuizQuestionActivity:AppCompatActivity() {
         )
     }
 }
+
+
+
