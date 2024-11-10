@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -17,7 +16,6 @@ import com.example.student_study_app.databinding.ActivityMainBinding
 import com.example.student_study_app.models.QuizQuestionsAPI
 import android.graphics.Typeface
 import android.os.CountDownTimer
-import com.example.student_study_app.APIutils.QuizDisplayer
 import kotlinx.coroutines.launch
 
 class QuizQuestionActivity:AppCompatActivity() {
@@ -28,11 +26,13 @@ class QuizQuestionActivity:AppCompatActivity() {
     private var selectedAlternativeIndex = -1;
     private var isAnswerChecked = false;
     private var totalScore = 0;
+
     private var tvQuizScore: TextView? =null
     private var tvQuestion: TextView? = null
     private var progressBar: ProgressBar? = null
     private var tvProgress: TextView? = null
     private var btnSubmit: Button? = null
+    private var tvTime: TextView? =null
     private var tvAlternatives: ArrayList<TextView>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +43,7 @@ class QuizQuestionActivity:AppCompatActivity() {
         progressBar = findViewById(R.id.progressBar)
         tvProgress = findViewById(R.id.tvProgress)
         tvQuizScore = findViewById(R.id.tvScore)
+        tvTime = findViewById(R.id.tvQuizTime)
         btnSubmit = findViewById(R.id.btnSubmit)
         tvAlternatives = arrayListOf(
             findViewById(R.id.optionOne),
@@ -58,7 +59,6 @@ class QuizQuestionActivity:AppCompatActivity() {
                     response.body()?.let { products ->
                         questionsList = products
                     }
-
                     updateQuestion()
                 } else {
                     binding.textError.text = "Error: ${response.code()}"
@@ -109,14 +109,12 @@ class QuizQuestionActivity:AppCompatActivity() {
                     currentQuestionIndex++
                     updateQuestion()
                 } else {
-                    currentQuestionIndex == 0
-                    updateQuestion()
-                 /*  val intent = Intent(this, ResultActivity::class.java)
-                    intent.putExtra(QuizDisplayer.USER_NAME, userName)
-                    questionsList?.let { it1 -> intent.putExtra(QuizDisplayer.TOTAL_QUESTIONS, it1.size) }
-                    intent.putExtra(QuizDisplayer.SCORE, totalScore)
+                  val intent = Intent(this, ResultActivity::class.java)
+                    intent.putExtra(Constants.USER.userName, "tEST USER")
+                    questionsList?.let { it1 -> intent.putExtra(Constants.TOTAL_QUESTIONS, it1.size) }
+                    intent.putExtra(Constants.SCORE, totalScore)
                     startActivity(intent)
-                    finish()*/
+                    finish()
                 }
                 isAnswerChecked = false
             }
@@ -137,19 +135,19 @@ class QuizQuestionActivity:AppCompatActivity() {
     val timer = object : CountDownTimer(10000, 1000) {
         override fun onTick(millisUntilFinished: Long) {
             // Called every second
-            tvQuizScore?.text = (millisUntilFinished / 1000).toString()
+            tvTime?.text = "Time remaingn: ${(millisUntilFinished / 1000).toString()}"
         }
 
         override fun onFinish() {
             // Called when the timer finishes
-            tvQuizScore?.text = "Timer finished!"
+            tvTime?.text = "Timer finished!"
         }
     }
     //@SuppressLint("SetTextI18n")
     private fun updateQuestion() {//This function updates the onscreen quiz options
         defaultAlternativesView()
         progressBar?.max = questionsList?.size!!
-      //  tvQuizScore?.text = "Score: $totalScore"
+        tvQuizScore?.text = "Score: $totalScore"
         // Render Question Text
         tvQuestion?.text = questionsList?.get(currentQuestionIndex)?.questionTitle
         // progressBar
@@ -185,9 +183,6 @@ class QuizQuestionActivity:AppCompatActivity() {
         selectedAlternativeIndex = index
         option.setTextColor(
             Color.parseColor("#ff0000")
-        )
-        option.setBackgroundColor(
-            Color.parseColor("#00ff1e")
         )
         option.setTypeface(option.typeface, Typeface.BOLD)
         option.background = ContextCompat.getDrawable(

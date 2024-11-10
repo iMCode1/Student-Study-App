@@ -13,6 +13,10 @@
         android:theme="@style/Theme.StudentStudyApp"
         tools:targetApi="31">
         <activity
+            android:name=".ResultActivity"/>
+        <activity
+            android:name=".QuizzesPageActivity"/>
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
