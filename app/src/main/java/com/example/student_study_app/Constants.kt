@@ -1,0 +1,18 @@
+package com.example.student_study_app
+
+import com.example.student_study_app.models.NewUserObject
+import com.example.student_study_app.models.QuizQuestionsAPI
+
+//this page server to provide the app with constants that will be used throughout the application
+object Constants {
+        val USER: NewUserObject = NewUserObject(
+            email = " ",
+            token = " ",
+            userName = "TestUser",
+        )
+        val USER_NAME: String = "user_name"
+        val TOTAL_QUESTIONS: String = "total_questions"
+        val SCORE: String = "score"
+        var qq: ArrayList<QuizQuestionsAPI>? = null
+         var QuizTime: Int =1
+}

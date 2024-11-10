@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ResultActivity"
+    android:background="@drawable/app_bg"
+    android:gravity="center"
+    android:paddingHorizontal="30dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/your_score"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/trophy_image_for_user"
+        android:src="@drawable/ic_trophy"
+        />
+
+    <TextView
+        android:id="@+id/congratulationsTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Congratulations, Walisson!"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:layout_marginTop="30dp"
+        />
+
+    <TextView
+        android:id="@+id/scoreTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/your_score_is_5_out_of_10"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:paddingVertical="16dp"
+        />
+
+    <Button
+        android:id="@+id/btnRestart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/main_menu"
+        android:textAllCaps="true"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/RoyalBlue"
+        android:textSize="18sp"
+        />
+
+</LinearLayout>

@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Student-Study-App</string>
+    <string name="trophy_image_for_user">Trophy image for user</string>
+    <string name="your_score_is_5_out_of_10">Your score is 5 out of 10</string>
+    <string name="try_again">try again</string>
+    <string name="your_score">Your Score</string>
+    <string name="main_menu">main menu</string>
 </resources>

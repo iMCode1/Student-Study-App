@@ -17,7 +17,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_quiz)
+        setContentView(R.layout.activity_main)
         }
 
     fun gradeQuiz(quiz: Quiz,answers: List<String>, selections: List<String>):Int{
@@ -37,4 +37,3 @@ return score
             
         
     }
-}
