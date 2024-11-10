@@ -15,6 +15,12 @@
         <activity
             android:name=".QuizzesPageActivity"/>
         <activity
+            android:name=".RegisterPageActivity"/>
+        <activity
+            android:name=".LoginPageActivity"/>
+        <activity
+            android:name=".IntroPageActivity"/>
+        <activity
             android:name=".ResultActivity"/>
         <activity
             android:name=".QuizQuestionActivity"/>
