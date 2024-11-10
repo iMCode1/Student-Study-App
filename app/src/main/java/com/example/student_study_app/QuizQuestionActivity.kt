@@ -109,8 +109,9 @@ class QuizQuestionActivity:AppCompatActivity() {
                     currentQuestionIndex++
                     updateQuestion()
                 } else {
-                  val intent = Intent(this, ResultActivity::class.java)
-                    intent.putExtra(Constants.USER.userName, "tEST USER")
+                    val intent = Intent(this, ResultActivity::class.java).also {
+                        it.putExtra(Constants.USER.userName, "tEST USER")
+                    }
                     questionsList?.let { it1 -> intent.putExtra(Constants.TOTAL_QUESTIONS, it1.size) }
                     intent.putExtra(Constants.SCORE, totalScore)
                     startActivity(intent)
