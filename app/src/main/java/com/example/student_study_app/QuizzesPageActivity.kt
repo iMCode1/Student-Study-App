@@ -7,19 +7,15 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.ui.graphics.Color
-import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.lifecycle.lifecycleScope
 import com.example.student_study_app.API.RetrofitInstance
 import com.example.student_study_app.databinding.ActivityMainBinding
 import com.example.student_study_app.models.QuizAPI
-import com.example.student_study_app.models.QuizQuestionsAPI
 import kotlinx.coroutines.launch
 
 class QuizzesPageActivity:AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private var tvQuizList: TextView? = null
     private var quizlist: ArrayList<QuizAPI>? = null;
     private var containerLayout: LinearLayout? = null
 
@@ -84,8 +80,34 @@ class QuizzesPageActivity:AppCompatActivity() {
             container.setOnClickListener {
                 Toast.makeText(this, "Clicked: ${container.id}", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, QuizQuestionActivity::class.java)
-                startActivity(intent)
-                finish()
+                lifecycleScope.launch{
+                    try {
+                        binding.progressBar.visibility = View.VISIBLE
+                        val response = RetrofitInstance.api.GetQuestions(container.id)
+                        if (response.isSuccessful) {
+                            val leaderboard = response.body()
+                            leaderboard?.let {
+                                // Process the leaderboard data
+                               for(i in 0..(quizlist?.size?.minus(1!!)!!)){
+                                    if(quizlist!![i].id == container.id){Constants.QuizTime = quizlist!![i].timeLimitSeconds*1000}
+                               }
+                                Constants.qq = leaderboard
+                                startActivity(intent)
+                                finish()
+                            }
+
+                        } else {
+                            binding.textError.text = "Error: ${response.code()}"
+                            binding.textError.visibility = View.VISIBLE
+                        }
+                    } catch (e: Exception) {
+                        binding.textError.text = "Error: ${e.message}"
+                        binding.textError.visibility = View.VISIBLE
+                    } finally {
+                        binding.progressBar.visibility = View.GONE
+                    }
+                }
+
             }
         }
         // Optional: Implement your click handling logic here

@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 class QuizQuestionActivity:AppCompatActivity() {
     private var userName: String? = null
     private lateinit var binding: ActivityMainBinding
-    private var questionsList: ArrayList<QuizQuestionsAPI>? = null;
+    private var questionsList: ArrayList<QuizQuestionsAPI>? = Constants.qq;
     private var currentQuestionIndex = 0;
     private var selectedAlternativeIndex = -1;
     private var isAnswerChecked = false;
@@ -51,26 +51,8 @@ class QuizQuestionActivity:AppCompatActivity() {
             findViewById(R.id.optionThree),
             findViewById(R.id.optionFour),
         )
-        lifecycleScope.launch {
-            timer.start()
-            try {
-                val response = RetrofitInstance.api.GetQuestions(3)
-                if (response.isSuccessful) {
-                    response.body()?.let { products ->
-                        questionsList = products
-                    }
-                    updateQuestion()
-                } else {
-                    binding.textError.text = "Error: ${response.code()}"
-                    binding.textError.visibility = View.VISIBLE
-                }
-            } catch (e: Exception) {
-                binding.textError.text = "Error: ${e.message}"
-                binding.textError.visibility = View.VISIBLE
-            } finally {
-                binding.progressBar.visibility = View.GONE
-            }
-        }
+        updateQuestion()
+        timer.start()
 
         btnSubmit?.setOnClickListener{
             if(!isAnswerChecked)
@@ -133,15 +115,20 @@ class QuizQuestionActivity:AppCompatActivity() {
         }
 
     }
-    val timer = object : CountDownTimer(10000, 1000) {
+    val timer = object : CountDownTimer(Constants.QuizTime.toLong(), 1000) {
         override fun onTick(millisUntilFinished: Long) {
             // Called every second
             tvTime?.text = "Time remaingn: ${(millisUntilFinished / 1000).toString()}"
         }
 
         override fun onFinish() {
-            // Called when the timer finishes
-            tvTime?.text = "Timer finished!"
+            val intent = Intent(this@QuizQuestionActivity, ResultActivity::class.java).also {
+                it.putExtra(Constants.USER.userName, "tEST USER")
+            }
+            questionsList?.let { it1 -> intent.putExtra(Constants.TOTAL_QUESTIONS, it1.size) }
+            intent.putExtra(Constants.SCORE, totalScore)
+            startActivity(intent)
+            finish()
         }
     }
     //@SuppressLint("SetTextI18n")

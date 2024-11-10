@@ -53,7 +53,7 @@
         android:id="@+id/btnRestart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/try_again"
+        android:text="@string/main_menu"
         android:textAllCaps="true"
         android:backgroundTint="@color/white"
         android:textColor="@color/RoyalBlue"
