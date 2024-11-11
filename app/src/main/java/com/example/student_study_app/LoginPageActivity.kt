@@ -11,6 +11,7 @@ import com.example.student_study_app.API.RetrofitInstance
 import com.example.student_study_app.AccountValdiation.AccoutnValidationObject
 import com.example.student_study_app.databinding.ActivityMainBinding
 import com.example.student_study_app.models.LoginUserRequest
+import com.example.student_study_app.models.NewUserObject
 import com.example.student_study_app.models.RegisterUserRequest
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.launch
@@ -39,8 +40,16 @@ class LoginPageActivity:AppCompatActivity() {
                     lifecycleScope.launch{
                         val response = RetrofitInstance.api.loginUser(LoginUser)
                         if (response.isSuccessful) {
+                            val leaderboard = response.body()
+                            val NewUser:NewUserObject = NewUserObject()
+                            leaderboard?.let {
+                                NewUser.userName = it.userName
+                                NewUser.userID = it.userID
+                                NewUser.email = it.email
+                                NewUser.token =  it.token
+                            }
                             isChecked = true;
-                            SuccessfulLogin(LoginUser)
+                            SuccessfulLogin(NewUser)
                         }
                         else{
                             Toast.makeText(this@LoginPageActivity, "Login failed", Toast.LENGTH_SHORT).show()
@@ -52,10 +61,11 @@ class LoginPageActivity:AppCompatActivity() {
         }
 
     }
-    fun SuccessfulLogin(RegUser:LoginUserRequest){
+    fun SuccessfulLogin(RegUser:NewUserObject){
         if(isChecked == true){
             Toast.makeText(this, "Welcome back", Toast.LENGTH_SHORT).show()
-            //AccoutnValidationObject.saveToFile(this,"TestUsername.txt",RegUser.username)
+            AccoutnValidationObject.saveToFile(this,"TestUsername.txt",RegUser.userName)
+            AccoutnValidationObject.saveToFile(this,"TestUserID.txt",RegUser.userID)
             val intent = Intent(this, QuizzesPageActivity::class.java)
             startActivity(intent)
             finish()
