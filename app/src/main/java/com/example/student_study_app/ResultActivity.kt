@@ -5,12 +5,14 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.student_study_app.AccountValdiation.AccoutnValidationObject
 
 class ResultActivity:AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_resultspage)
-        val userName = intent.getStringExtra(Constants.USER.userName)
+       // val userName = intent.getStringExtra(Constants.USER.userName)
+        val userName = AccoutnValidationObject.readFromFile(this,"TestUsername.txt")
         val totalQuestions = intent.getIntExtra(Constants.TOTAL_QUESTIONS, 0)
         val score = intent.getIntExtra(Constants.SCORE, 0)
         val congratulationsTv: TextView = findViewById(R.id.congratulationsTv)
