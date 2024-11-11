@@ -28,7 +28,9 @@ object AccoutnValidationObject {
     fun ValidateRegisterInputs(inLname: String?,inEmail:String,inPassword:String,inConfirmPassword:String,inFname:String): Boolean {
         return isNotNullOrBlank(inLname) && isNotNullOrBlank(inFname) && isValidEmail(inEmail) && isValidPassword(inPassword) && passwordsMatch(inPassword, inConfirmPassword)
     }
-
+    fun ValidateloginInputs(inEmail:String,inPassword:String): Boolean {
+        return isValidEmail(inEmail)&& isValidPassword(inPassword)
+    }
     fun saveToFile(context: Context, filename: String, content: String) {
         context.openFileOutput(filename, Context.MODE_PRIVATE).use { output ->
             output.write(content.toByteArray())

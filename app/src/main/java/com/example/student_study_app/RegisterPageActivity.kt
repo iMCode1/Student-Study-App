@@ -50,7 +50,10 @@ class RegisterPageActivity:AppCompatActivity() {
                     val response = RetrofitInstance.api.RegisterUser(RegUser)
                     if (response.isSuccessful) {
                         isChecked = true;
-                        qdasd(RegUser)
+                        SuccessfulRegistraion(RegUser)
+                    }
+                    else{
+                        Toast.makeText(this@RegisterPageActivity, "Registration failed", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -65,7 +68,7 @@ class RegisterPageActivity:AppCompatActivity() {
         return "$str1$str2$randomNumber"
     }
 
-    fun qdasd(RegUser:RegisterUserRequest){
+    fun SuccessfulRegistraion(RegUser:RegisterUserRequest){
         if(isChecked == true){
             Toast.makeText(this, "Registration succesful", Toast.LENGTH_SHORT).show()
             AccoutnValidationObject.saveToFile(this,"TestUsername.txt",RegUser.username)
