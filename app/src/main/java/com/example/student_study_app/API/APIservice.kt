@@ -34,7 +34,7 @@ interface APIservice {// this is an API service which defines the necessary endp
 
     //History endpoints - require authorisation
     @POST("/history")
-    suspend fun GetUserHistory(@Body history: HistoryQuizRequest,@Header("Authorization")token:String)
+    suspend fun AddHistory(@Body history: HistoryQuizRequest): Response<Unit>
     @GET("/history/Quiz/{id}")
     suspend fun GetUserHistory(@Path("id")id: Int,@Header("Authorization")token:String):Response<QuizHistoryResponse>
 }
