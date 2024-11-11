@@ -11,15 +11,16 @@ import com.example.student_study_app.models.RegisterUserRequest
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface APIservice {// this is an API service which defines the necessary endpoints for the user application
     //QUIZ endpoints
     @GET("/Quiz")
-    suspend fun GetQuiz(): Response<List<QuizAPI>>
+    suspend fun GetQuiz(): Response<ArrayList<QuizAPI>>
     @GET("/Quiz/{id}")
-    suspend fun GetQuestions(): Response<List<QuizQuestionsAPI>>
+    suspend fun GetQuestions(@Path("id") id: Int): Response<ArrayList<QuizQuestionsAPI>>
 
     //Account endpoints
     @POST("/account/register")
@@ -33,7 +34,7 @@ interface APIservice {// this is an API service which defines the necessary endp
 
     //History endpoints - require authorisation
     @POST("/history")
-    suspend fun GetUserHistory(@Body history: HistoryQuizRequest)
+    suspend fun GetUserHistory(@Body history: HistoryQuizRequest,@Header("Authorization")token:String)
     @GET("/history/Quiz/{id}")
-    suspend fun GetUserHistory(@Path("id")id: Int):Response<QuizHistoryResponse>
+    suspend fun GetUserHistory(@Path("id")id: Int,@Header("Authorization")token:String):Response<QuizHistoryResponse>
 }
