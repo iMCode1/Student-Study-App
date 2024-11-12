@@ -53,7 +53,7 @@ class QuizQuestionActivity:AppCompatActivity() {
         )
         updateQuestion()
         timer.start()
-
+//todo fix timer bug
         btnSubmit?.setOnClickListener{
             if(!isAnswerChecked)
             {
@@ -91,11 +91,10 @@ class QuizQuestionActivity:AppCompatActivity() {
                     currentQuestionIndex++
                     updateQuestion()
                 } else {
-                    val intent = Intent(this, ResultActivity::class.java).also {
-                        it.putExtra(Constants.USER.userName, "tEST USER")
-                    }
+                    val intent = Intent(this, ResultActivity::class.java)
                     questionsList?.let { it1 -> intent.putExtra(Constants.TOTAL_QUESTIONS, it1.size) }
                     intent.putExtra(Constants.SCORE, totalScore)
+                    timer.cancel()
                     startActivity(intent)
                     finish()
                 }
@@ -115,21 +114,21 @@ class QuizQuestionActivity:AppCompatActivity() {
         }
 
     }
-    val timer = object : CountDownTimer(Constants.QuizTime.toLong(), 1000) {
+    val timer = object : CountDownTimer(Constants.QuizTime.toLong()*1000, 1000) {
         override fun onTick(millisUntilFinished: Long) {
             // Called every second
             tvTime?.text = "Time remaingn: ${(millisUntilFinished / 1000).toString()}"
+            Constants.TimeTaken = (millisUntilFinished / 1000).toInt()
         }
 
         override fun onFinish() {
-            val intent = Intent(this@QuizQuestionActivity, ResultActivity::class.java).also {
-                it.putExtra(Constants.USER.userName, "tEST USER")
-            }
+            val intent = Intent(this@QuizQuestionActivity, ResultActivity::class.java)
             questionsList?.let { it1 -> intent.putExtra(Constants.TOTAL_QUESTIONS, it1.size) }
             intent.putExtra(Constants.SCORE, totalScore)
             startActivity(intent)
             finish()
         }
+
     }
     //@SuppressLint("SetTextI18n")
     private fun updateQuestion() {//This function updates the onscreen quiz options

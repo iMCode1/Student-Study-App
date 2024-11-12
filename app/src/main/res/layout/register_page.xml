@@ -22,6 +22,7 @@
             android:src="@drawable/ic_arrow_back_black_24dp" />
 
         <TextView
+            android:id="@+id/wwe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -63,6 +64,7 @@
         app:startIconTint="@android:color/black">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/firstNametext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
@@ -91,6 +93,7 @@
         app:startIconTint="@android:color/black">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/lastNametext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
@@ -118,6 +121,7 @@
         app:startIconTint="@android:color/black">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/emailtext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
@@ -145,6 +149,7 @@
         app:startIconTint="@android:color/black">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/passwordtext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
@@ -172,6 +177,7 @@
         app:startIconTint="@android:color/black">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/confirmPasswordtext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
