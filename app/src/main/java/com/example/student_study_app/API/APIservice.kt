@@ -32,9 +32,9 @@ interface APIservice {// this is an API service which defines the necessary endp
     @GET("/leaderboard/Quiz{id}")
     suspend fun getLeaderboard(@Path("id") id: Int): Response<ArrayList<LeaderboardResponse>>
 
-    //History endpoints - require authorisation
+    //History endpoints
     @POST("/history")
     suspend fun AddHistory(@Body history: HistoryQuizRequest): Response<Unit>
     @GET("/history/Quiz/{id}")
-    suspend fun GetUserHistory(@Path("id")id: Int,@Header("Authorization")token:String):Response<QuizHistoryResponse>
+    suspend fun GetUserHistory(@Path("id")id: Int):Response<ArrayList<QuizHistoryResponse>>
 }

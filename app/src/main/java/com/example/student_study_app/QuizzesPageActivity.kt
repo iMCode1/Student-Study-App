@@ -89,8 +89,9 @@ class QuizzesPageActivity:AppCompatActivity() {
                             leaderboard?.let {
                                 // Process the leaderboard data
                                for(i in 0..(quizlist?.size?.minus(1!!)!!)){
-                                    if(quizlist!![i].id == container.id){Constants.QuizTime = quizlist!![i].timeLimitSeconds*1000}
+                                    if(quizlist!![i].id == container.id){Constants.QuizTime = quizlist!![i].timeLimitSeconds}
                                }
+                                Constants.QuizID = container.id
                                 Constants.qq = leaderboard
                                 startActivity(intent)
                                 finish()

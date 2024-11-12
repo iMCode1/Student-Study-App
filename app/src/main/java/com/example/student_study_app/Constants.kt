@@ -12,7 +12,9 @@ object Constants {
             userID = "s"
         )
         val TOTAL_QUESTIONS: String = "total_questions"
+        var TimeTaken: Int = 0
         val SCORE: String = "score"
         var qq: ArrayList<QuizQuestionsAPI>? = null
          var QuizTime: Int =1
+        var QuizID:Int = 0
 }
