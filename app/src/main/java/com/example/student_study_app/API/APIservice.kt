@@ -29,8 +29,8 @@ interface APIservice {// this is an API service which defines the necessary endp
     suspend fun loginUser(@Body user: LoginUserRequest): Response<NewUserObject>
 
     //Leaderboard endpoint
-    @GET("/leaderboard/{id}")
-    suspend fun getLeaderboard(@Path("id") id: Int): Response<LeaderboardResponse>
+    @GET("/leaderboard/Quiz{id}")
+    suspend fun getLeaderboard(@Path("id") id: Int): Response<ArrayList<LeaderboardResponse>>
 
     //History endpoints - require authorisation
     @POST("/history")
