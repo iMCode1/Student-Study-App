@@ -29,12 +29,12 @@ interface APIservice {// this is an API service which defines the necessary endp
     suspend fun loginUser(@Body user: LoginUserRequest): Response<NewUserObject>
 
     //Leaderboard endpoint
-    @GET("/leaderboard/{id}")
-    suspend fun getLeaderboard(@Path("id") id: Int): Response<LeaderboardResponse>
+    @GET("/leaderboard/Quiz{id}")
+    suspend fun getLeaderboard(@Path("id") id: Int): Response<ArrayList<LeaderboardResponse>>
 
-    //History endpoints - require authorisation
+    //History endpoints
     @POST("/history")
     suspend fun AddHistory(@Body history: HistoryQuizRequest): Response<Unit>
     @GET("/history/Quiz/{id}")
-    suspend fun GetUserHistory(@Path("id")id: Int,@Header("Authorization")token:String):Response<QuizHistoryResponse>
+    suspend fun GetUserHistory(@Path("id")id: Int):Response<ArrayList<QuizHistoryResponse>>
 }

@@ -30,19 +30,16 @@ class ResultActivity:AppCompatActivity() {
         scoreTv.text = "Your score is $score of $totalQuestions"
 
         btnRestart?.setOnClickListener{
-            val HistoryQui = HistoryQuizRequest(3,1,1,AccoutnValidationObject.readFromFile(this,"TestUserID.txt"))
+            //TODO Fix this request(timetaken and score need to be added)
+            val HistoryQui = HistoryQuizRequest(Constants.QuizID,(score.toDouble()/totalQuestions),((Constants.QuizTime)-Constants.TimeTaken),AccoutnValidationObject.readFromFile(this,"TestUserID.txt"))
             lifecycleScope.launch{
                 val response = RetrofitInstance.api.AddHistory(HistoryQui)
                 if (response.isSuccessful) {
-                    val intent = Intent(this@ResultActivity, QuizzesPageActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }else{
-                    val intent = Intent(this@ResultActivity, QuizzesPageActivity::class.java)
-                    startActivity(intent)
-                    finish()
                 }
             }
+            val intent = Intent(this@ResultActivity, QuizzesPageActivity::class.java)
+            startActivity(intent)
+            finish()
 
         }
     }
