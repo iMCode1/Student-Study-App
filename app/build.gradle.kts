@@ -1,13 +1,11 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("com.google.dagger.hilt.android") version "2.51.1" apply true
-    id("kotlin-kapt")
 }
 
 android {
     namespace = "com.student_study_app"
-    compileSdkVersion = 35
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.student_study_app"
@@ -87,7 +85,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
 
     implementation(libs.logging.interceptor)
-    implementation "com.google.dagger:hilt-android:2.51.1"
-    kapt "com.google.dagger:hilt-compiler:2.51.1"
+    
 
 }
