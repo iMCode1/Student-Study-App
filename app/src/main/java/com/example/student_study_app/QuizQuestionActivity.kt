@@ -1,5 +1,6 @@
 package com.example.student_study_app
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -15,7 +16,9 @@ import com.example.student_study_app.API.RetrofitInstance
 import com.example.student_study_app.databinding.ActivityMainBinding
 import com.example.student_study_app.models.QuizQuestionsAPI
 import android.graphics.Typeface
+import android.graphics.drawable.GradientDrawable
 import android.os.CountDownTimer
+import android.view.animation.AccelerateDecelerateInterpolator
 import kotlinx.coroutines.launch
 
 class QuizQuestionActivity:AppCompatActivity() {
@@ -137,7 +140,7 @@ class QuizQuestionActivity:AppCompatActivity() {
         // Render Question Text
         tvQuestion?.text = questionsList?.get(currentQuestionIndex)?.questionTitle
         // progressBar
-        progressBar?.progress = currentQuestionIndex
+        progressBar?.progress = currentQuestionIndex+1
         // Text of progress bar
         tvProgress?.text = "${currentQuestionIndex + 1}/${questionsList?.size}"
 
@@ -165,16 +168,39 @@ class QuizQuestionActivity:AppCompatActivity() {
     }
 
     private fun selectedAlternativeView(option: TextView, index: Int) {
+        // Reset other options to default view
         defaultAlternativesView()
+
+        // Set the selected index
         selectedAlternativeIndex = index
-        option.setTextColor(
-            Color.parseColor("#f0f0f0")
-        )
+
+        // Customize text appearance
+        option.setTextColor(Color.parseColor("#f0f0f0"))
         option.setTypeface(option.typeface, Typeface.BOLD)
-        option.background = ContextCompat.getDrawable(
+
+        // Create a drawable for the background to support color animation
+        val backgroundDrawable = ContextCompat.getDrawable(
             this@QuizQuestionActivity,
             R.drawable.selected_option_border_bg
+        ) as GradientDrawable
+
+        // Set initial background color if needed
+        backgroundDrawable.setColor(Color.parseColor("#ffffff")) // Initial color
+
+        // Apply the drawable to the TextView
+        option.background = backgroundDrawable
+
+        // Define the color animation
+        val colorAnimation = ObjectAnimator.ofArgb(
+            backgroundDrawable, "color",
+            Color.parseColor("#ffffff"), // Starting color (white)
+            Color.parseColor("#031157")  // Target color (your choice)
         )
+        colorAnimation.duration = 300 // Animation duration in milliseconds
+        colorAnimation.interpolator = AccelerateDecelerateInterpolator()
+
+        // Start the animation
+        colorAnimation.start()
     }
 
     private fun answerView(view: TextView, drawableId: Int) {
