@@ -53,7 +53,6 @@ class QuizQuestionActivity:AppCompatActivity() {
         )
         updateQuestion()
         timer.start()
-//todo fix timer bug
         btnSubmit?.setOnClickListener{
             if(!isAnswerChecked)
             {
@@ -157,7 +156,7 @@ class QuizQuestionActivity:AppCompatActivity() {
     private fun defaultAlternativesView() {
         for (alternativeTv in tvAlternatives!!) {
             alternativeTv.typeface = Typeface.DEFAULT
-            alternativeTv.setTextColor(Color.parseColor("#7A8089"))
+            alternativeTv.setTextColor(Color.parseColor("#000000"))
             alternativeTv.background = ContextCompat.getDrawable(
                 this@QuizQuestionActivity,
                 R.drawable.default_option_border_bg
@@ -169,7 +168,7 @@ class QuizQuestionActivity:AppCompatActivity() {
         defaultAlternativesView()
         selectedAlternativeIndex = index
         option.setTextColor(
-            Color.parseColor("#ff0000")
+            Color.parseColor("#f0f0f0")
         )
         option.setTypeface(option.typeface, Typeface.BOLD)
         option.background = ContextCompat.getDrawable(
