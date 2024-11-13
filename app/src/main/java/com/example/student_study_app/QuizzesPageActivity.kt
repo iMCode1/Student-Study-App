@@ -1,7 +1,9 @@
 package com.example.student_study_app
 
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -57,19 +59,31 @@ class QuizzesPageActivity:AppCompatActivity() {
         containerLayout?.removeAllViews()
         for (i in 0 until quizlist!!.size) {
             val textView = TextView(this).apply {
-                text = quizlist!![i].quizTitle
+                text = "Title: ${quizlist!![i].quizTitle}\nCategory: ${quizlist!![i].subjectCategory}\nTime Limit: ${quizlist!![i].timeLimitSeconds} seconds"
                 id = quizlist!![i].id
                 layoutParams = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT // Use WRAP_CONTENT for better height control
+                    LinearLayout.LayoutParams.WRAP_CONTENT
                 ).apply {
-                    // Add margins for better spacing
-                    setMargins(0, 24, 0, 24) // Adjust the top and bottom margins for more space
+                    setMargins(0, 24, 0, 24) // Add spacing between elements
                 }
-                setTextColor(android.graphics.Color.parseColor("#e5f505"))
-                setBackgroundColor(android.graphics.Color.parseColor("#f505cd"))
-                textSize = 40f
-                setPadding(16, 16, 16, 16) // Padding inside each TextView
+
+                // Text and background styling
+                text = "Title: ${quizlist!![i].quizTitle}\nCategory: ${quizlist!![i].subjectCategory}\nTime Limit: ${quizlist!![i].timeLimitSeconds}"
+                setTextColor(android.graphics.Color.parseColor("#f0f0f0")) // Slightly softer white
+                setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f) // Smaller, to improve readability
+
+                // Apply the custom background with rounded corners and gradient
+                setBackgroundResource(R.drawable.rounded_background)
+
+                // Additional styling
+                setLineSpacing(8f, 1.2f) // Increase line height for readability
+                typeface = Typeface.SANS_SERIF // Use sans-serif for a modern look
+                textAlignment = View.TEXT_ALIGNMENT_CENTER // Center align text
+
+                // Elevation and padding
+                elevation = 4f // Subtle shadow
+                setPadding(32, 32, 32, 32) // Larger padding for a spacious look
             }
             containerLayout?.addView(textView)
         }
