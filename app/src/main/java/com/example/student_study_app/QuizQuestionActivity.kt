@@ -53,7 +53,6 @@ class QuizQuestionActivity:AppCompatActivity() {
         )
         updateQuestion()
         timer.start()
-
         btnSubmit?.setOnClickListener{
             if(!isAnswerChecked)
             {
@@ -91,11 +90,10 @@ class QuizQuestionActivity:AppCompatActivity() {
                     currentQuestionIndex++
                     updateQuestion()
                 } else {
-                    val intent = Intent(this, ResultActivity::class.java).also {
-                        it.putExtra(Constants.USER.userName, "tEST USER")
-                    }
+                    val intent = Intent(this, ResultActivity::class.java)
                     questionsList?.let { it1 -> intent.putExtra(Constants.TOTAL_QUESTIONS, it1.size) }
                     intent.putExtra(Constants.SCORE, totalScore)
+                    timer.cancel()
                     startActivity(intent)
                     finish()
                 }
@@ -115,21 +113,21 @@ class QuizQuestionActivity:AppCompatActivity() {
         }
 
     }
-    val timer = object : CountDownTimer(Constants.QuizTime.toLong(), 1000) {
+    val timer = object : CountDownTimer(Constants.QuizTime.toLong()*1000, 1000) {
         override fun onTick(millisUntilFinished: Long) {
             // Called every second
             tvTime?.text = "Time remaingn: ${(millisUntilFinished / 1000).toString()}"
+            Constants.TimeTaken = (millisUntilFinished / 1000).toInt()
         }
 
         override fun onFinish() {
-            val intent = Intent(this@QuizQuestionActivity, ResultActivity::class.java).also {
-                it.putExtra(Constants.USER.userName, "tEST USER")
-            }
+            val intent = Intent(this@QuizQuestionActivity, ResultActivity::class.java)
             questionsList?.let { it1 -> intent.putExtra(Constants.TOTAL_QUESTIONS, it1.size) }
             intent.putExtra(Constants.SCORE, totalScore)
             startActivity(intent)
             finish()
         }
+
     }
     //@SuppressLint("SetTextI18n")
     private fun updateQuestion() {//This function updates the onscreen quiz options
@@ -158,7 +156,7 @@ class QuizQuestionActivity:AppCompatActivity() {
     private fun defaultAlternativesView() {
         for (alternativeTv in tvAlternatives!!) {
             alternativeTv.typeface = Typeface.DEFAULT
-            alternativeTv.setTextColor(Color.parseColor("#7A8089"))
+            alternativeTv.setTextColor(Color.parseColor("#000000"))
             alternativeTv.background = ContextCompat.getDrawable(
                 this@QuizQuestionActivity,
                 R.drawable.default_option_border_bg
@@ -170,7 +168,7 @@ class QuizQuestionActivity:AppCompatActivity() {
         defaultAlternativesView()
         selectedAlternativeIndex = index
         option.setTextColor(
-            Color.parseColor("#ff0000")
+            Color.parseColor("#f0f0f0")
         )
         option.setTypeface(option.typeface, Typeface.BOLD)
         option.background = ContextCompat.getDrawable(
