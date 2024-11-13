@@ -17,9 +17,7 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
     }
-    
 }
-
 
 rootProject.name = "Student-Study-App"
 include(":app")

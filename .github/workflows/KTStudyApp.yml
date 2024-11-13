@@ -1,5 +1,4 @@
 name: KTStudyAppBuild
-
 on:
   pull_request:
     branches: [ main ]
@@ -36,8 +35,8 @@ jobs:
       - name: Grant execute permission to gradlew
         run: chmod +x ./gradlew
 
-      - name: Clean and Build with Gradle (with Build Scan)
-        run: ./gradlew cleanBuildCache && ./gradlew build --scan
+      - name: Build with Gradle
+        run: ./gradlew build
 
       - name: Run tests
         run: ./gradlew test
@@ -47,4 +46,3 @@ jobs:
         with:
           name: KTStudyApp.apk
           path: app/build/outputs/apk/debug/app-debug.apk
-
