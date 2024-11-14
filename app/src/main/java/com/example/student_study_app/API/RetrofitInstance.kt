@@ -12,7 +12,8 @@ import okhttp3.logging.HttpLoggingInterceptor
 import java.util.concurrent.TimeUnit
 
 object RetrofitInstance {
-    private const val BASE_URL = "https://kayitechbackendapi-dah9gffjd7fxarbt.canadacentral-01.azurewebsites.net"
+    private const val BASE_URL = "https://kayitechbackendapi-dah9gffjd7fxarbt.canadacentral-01.azurewebsites.net"//prod server
+    //private const val BASE_URL = "http://10.0.2.2:5213"//Test server
     // Initialize the TokenManager with context
 
     private val logging = HttpLoggingInterceptor().apply {
