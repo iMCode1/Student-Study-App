@@ -1,13 +1,16 @@
 package com.example.student_study_app
 
+
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.Spinner
-import com.example.student_study_app.API.RetrofitInstance
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.ListAdapter
+import com.example.student_study_app.R
+import com.example.student_study_app.API.RetrofitInstance
 import com.example.student_study_app.R.id.LeaderboardLayout
 import com.example.student_study_app.databinding.ActivityMainBinding
 import com.example.student_study_app.models.LeaderboardResponse
@@ -30,7 +33,7 @@ class Leaderboards : AppCompatActivity() {
         quizSelect= findViewById(R.id.QuizSelection)
         leaderboardLayout=findViewById(LeaderboardLayout)
 
-        setContentView(R.layout.leaderboard_page)
+        setContentView(com.example.student_study_app.R.layout.leaderboard_page)
         val launch = lifecycleScope.launch {
             try {
                 val quizListResponse = RetrofitInstance.api.GetQuiz()
@@ -43,12 +46,12 @@ class Leaderboards : AppCompatActivity() {
 
             } catch (e:Exception){  }
         }
-        var QuizAdapter= quizlist?.let { ArrayAdapter(this, android.R.layout.simple_spinner_item, it.toList()) }
-
-
+        var QuizAdapter= quizlist?.let { ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, it.toList()) }
+        quizSelect?.adapter=QuizAdapter
+        adapter?.addAll()
     //val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, leaderboardArray)
        // setListAdapter(adapter)
-
+quizSelect?.setOnClickListener{showLeaderboard(2)}
     }
 
     fun showLeaderboard(quizID:Int){
@@ -60,11 +63,15 @@ class Leaderboards : AppCompatActivity() {
                 val repBody =
                     response.body() // If there is a response body (JSON), you will added to the variable you specified
                 repBody?.let {
-                    leaderboardArray = response // varaible you specified
+                    leaderboardArray = repBody // varaible you specified
                 }
 
             }
         }
+        val leaderboardAdapter= leaderboardArray?.let { ArrayAdapter(this, android.R.layout.simple_list_item_1, it.toList()) }
+        listLeaderboard?.adapter =leaderboardAdapter
+        adapter?.addAll()
+
     }
 
 
