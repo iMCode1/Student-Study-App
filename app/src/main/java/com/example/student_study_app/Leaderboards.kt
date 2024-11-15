@@ -2,6 +2,7 @@ package com.example.student_study_app
 
 
 import android.os.Bundle
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.Spinner
@@ -21,7 +22,7 @@ import kotlinx.coroutines.launch
 class Leaderboards : AppCompatActivity() {
     private var listLeaderboard:ListView?=null
     private lateinit var binding: ActivityMainBinding
-    private var adapter: ArrayAdapter<Any>?=null
+    private var QAadapter: ArrayAdapter<Any>?=null
     private var leaderboardArray: ArrayList<LeaderboardResponse>?=null
     private var quizSelect: Spinner?=null
     private var quizlist: ArrayList<QuizAPI>? =null
@@ -46,12 +47,16 @@ class Leaderboards : AppCompatActivity() {
 
             } catch (e:Exception){  }
         }
-        var QuizAdapter= quizlist?.let { ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, it.toList()) }
-        quizSelect?.adapter=QuizAdapter
-        adapter?.addAll()
+        QAadapter= quizlist?.let { ArrayAdapter(this, android.R.layout.simple_spinner_item, it.toList()) }
+        QAadapter?.addAll()
+        quizSelect?.adapter=QAadapter
+
     //val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, leaderboardArray)
        // setListAdapter(adapter)
-quizSelect?.setOnClickListener{showLeaderboard(2)}
+        //showLeaderboard(6)
+        var adapterView:AdapterView<ArrayAdapter<QuizAPI>>?
+        var itemSel=quizSelect?.selectedItemId
+quizSelect?.setOnClickListener()//from the item selecter, you extrapolate the quiz id, use the quis id to show the leaderboard
     }
 
     fun showLeaderboard(quizID:Int){
@@ -69,10 +74,12 @@ quizSelect?.setOnClickListener{showLeaderboard(2)}
             }
         }
         val leaderboardAdapter= leaderboardArray?.let { ArrayAdapter(this, android.R.layout.simple_list_item_1, it.toList()) }
+        leaderboardAdapter?.addAll()
         listLeaderboard?.adapter =leaderboardAdapter
-        adapter?.addAll()
+
 
     }
 
 
 }
+
