@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import androidx.lifecycle.lifecycleScope
 import com.example.student_study_app.API.RetrofitInstance
+import com.example.student_study_app.AccountValdiation.AccoutnValidationObject
 import com.example.student_study_app.databinding.ActivityMainBinding
 import com.example.student_study_app.models.QuizAPI
 import kotlinx.coroutines.launch
@@ -20,12 +21,14 @@ class QuizzesPageActivity:AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var quizlist: ArrayList<QuizAPI>? = null;
     private var containerLayout: LinearLayout? = null
+   private var btnSignOut: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.quizzes_page)
         binding = ActivityMainBinding.inflate(layoutInflater)
         containerLayout = findViewById(R.id.quiz_display)
+        btnSignOut = findViewById(R.id.item_sign_out)
 
         lifecycleScope.launch {
             try {
@@ -39,6 +42,7 @@ class QuizzesPageActivity:AppCompatActivity() {
                     }
                     updateQuiz()
                     handleItemClick()
+                    signOutHandler()
                 } else {
                     binding.textError.text = "Error: ${response.code()}"
                     binding.textError.visibility = View.VISIBLE
@@ -125,8 +129,16 @@ class QuizzesPageActivity:AppCompatActivity() {
 
             }
         }
-        // Optional: Implement your click handling logic here
-        // For example, open a new activity or show a dialog
-            //showItemDialog(position, item)
+
+    }
+
+    private fun signOutHandler(){
+        btnSignOut?.setOnClickListener {
+            Toast.makeText(this, "Clicked:", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, StartPageActivity::class.java)
+            AccoutnValidationObject.SignOut(this, "TestUsername.txt")
+            startActivity(intent)
+            finish()
+        }
     }
 }
