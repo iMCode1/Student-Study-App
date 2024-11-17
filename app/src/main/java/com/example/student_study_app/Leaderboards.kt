@@ -10,12 +10,8 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.forEach
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.ListAdapter
-import com.example.student_study_app.R
 import com.example.student_study_app.API.RetrofitInstance
-import com.example.student_study_app.R.id.LeaderboardLayout
 import com.example.student_study_app.databinding.ActivityMainBinding
 import com.example.student_study_app.models.LeaderboardResponse
 import com.example.student_study_app.models.QuizAPI
@@ -25,7 +21,6 @@ import kotlinx.coroutines.launch
 class Leaderboards : AppCompatActivity() {
     private var listLeaderboard:ListView?=null
     private lateinit var binding: ActivityMainBinding
-    private var QAadapter: ArrayAdapter<Any>?=null
     private var leaderboardArray: ArrayList<LeaderboardResponse>?=null
     private var quizSelect: Spinner?=null
     private var quizlist: ArrayList<QuizAPI>? =null
@@ -33,47 +28,33 @@ class Leaderboards : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        listLeaderboard = findViewById(R.id.LeaderboardList)
-        quizSelect= findViewById(R.id.QuizSelection)
-        leaderboardLayout=findViewById(LeaderboardLayout)
+        setContentView(R.layout.leaderboard_page)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        listLeaderboard = findViewById(R.id.leaderboardList)
+        quizSelect = findViewById(R.id.quizSelection)
+        leaderboardLayout=findViewById(R.id.leaderboardLayout)
+        SpinnerPopulater()
+        quizSelect?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                // Get the selected item
+                val selectedItem = parent.getItemAtPosition(position).toString()
+                showLeaderboard(position)
+                // Handle the selection
+                Toast.makeText(this@Leaderboards, "Selected: ${quizlist?.get(position)?.id}", Toast.LENGTH_SHORT).show()
+            }
 
-        setContentView(com.example.student_study_app.R.layout.leaderboard_page)
-        val launch = lifecycleScope.launch {
-            try {
-                val quizListResponse = RetrofitInstance.api.GetQuiz()
-                if (quizListResponse.isSuccessful){
-                    val quizzes=quizListResponse.body()
-                    let { quizlist= quizzes}
-
-                }
-
-
-            } catch (e:Exception){  }
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
         }
-        QAadapter= quizlist?.let { ArrayAdapter(this, android.R.layout.simple_spinner_item, it.toList()) }
-        QAadapter?.addAll()
-        quizSelect?.adapter=QAadapter
-
-    //val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, leaderboardArray)
-       // setListAdapter(adapter)
-        //showLeaderboard(6)
-        var adapterView:AdapterView<ArrayAdapter<QuizAPI>>?
-        var itemSel=quizSelect?.selectedItemId
-//quizSelect?.setOnItemClickListener(adapterView.onItemClickListener,)//from the item selecter, you extrapolate the quiz id, use the quis id to show the leaderboard
     }
 
-    fun showLeaderboard(quizID:Int){
-
-        val apiAccess=lifecycleScope.launch {
-
-            val response = RetrofitInstance.api.getLeaderboard(quizID) // API interface
-            if (response.isSuccessful) { // This is an if stattment to check if a response is succesful
-                val repBody =
-                    response.body() // If there is a response body (JSON), you will added to the variable you specified
-                repBody?.let {
-                    leaderboardArray = repBody // varaible you specified
-                }
-
+    fun showLeaderboard(quizID:Int){// Used to populate the list view
+        lifecycleScope.launch {
+            val response = RetrofitInstance.api.getLeaderboard(quizID)
+            if (response.isSuccessful) {
+                val repBody = response.body()
+                repBody?.let {a -> displayResults(a)}
             }
         }
         val leaderboardAdapter= leaderboardArray?.let { ArrayAdapter(this, android.R.layout.simple_list_item_1, it.toList()) }
@@ -82,15 +63,29 @@ class Leaderboards : AppCompatActivity() {
 
 
     }
+    private fun displayResults(quiz: List<LeaderboardResponse>) {
+        val adapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_list_item_1,
+            quiz.map { "${it.username} \nScore: ${it.score} \nTime: ${it.timeTakenSeconds}" }
+        )
+        listLeaderboard?.adapter = adapter
+        binding.listView.adapter = adapter
+    }
 
-    fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, id: Long) {
-        val item = adapterView.getItemAtPosition(position)
-        item?.let {
-            Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
+    fun SpinnerPopulater(){ //Used for populating the spinner
+        lifecycleScope.launch {//fetch all quizzes from api
+            try {
+                val Response = RetrofitInstance.api.GetQuiz()
+                if (Response.isSuccessful){
+                    val quizzes=Response.body()
+                    quizzes.let { quizlist= quizzes}
+                    val adapter = ArrayAdapter(this@Leaderboards, android.R.layout.simple_spinner_item, quizlist!!.map { it.quizTitle })//adapts the list to the spinner only displaying the titles
+                    quizSelect?.adapter = adapter
+                }
+            } catch (e:Exception){  }
         }
-        Toast.makeText(this, "Selected", Toast.LENGTH_SHORT).show()
-    } //found online, use as reference
-
+    }
 
 
 }
