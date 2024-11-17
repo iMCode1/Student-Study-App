@@ -2,12 +2,15 @@ package com.example.student_study_app
 
 
 import android.os.Bundle
+import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.forEach
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ListAdapter
 import com.example.student_study_app.R
@@ -56,7 +59,7 @@ class Leaderboards : AppCompatActivity() {
         //showLeaderboard(6)
         var adapterView:AdapterView<ArrayAdapter<QuizAPI>>?
         var itemSel=quizSelect?.selectedItemId
-quizSelect?.setOnClickListener()//from the item selecter, you extrapolate the quiz id, use the quis id to show the leaderboard
+//quizSelect?.setOnItemClickListener(adapterView.onItemClickListener,)//from the item selecter, you extrapolate the quiz id, use the quis id to show the leaderboard
     }
 
     fun showLeaderboard(quizID:Int){
@@ -80,6 +83,14 @@ quizSelect?.setOnClickListener()//from the item selecter, you extrapolate the qu
 
     }
 
+    fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, id: Long) {
+        val item = adapterView.getItemAtPosition(position)
+        item?.let {
+            Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
+        }
+        Toast.makeText(this, "Selected", Toast.LENGTH_SHORT).show()
+    } //found online, use as reference
+
+
 
 }
-
