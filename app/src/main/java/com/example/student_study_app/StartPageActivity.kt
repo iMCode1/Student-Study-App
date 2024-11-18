@@ -16,7 +16,6 @@ import kotlinx.coroutines.launch
 
 class StartPageActivity:AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private var btnStarted: Button? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.start_page)
@@ -28,7 +27,6 @@ class StartPageActivity:AppCompatActivity() {
                 try {
                     Toast.makeText(this@StartPageActivity, "Loading, please wait", Toast.LENGTH_SHORT).show()
                     loadingSpinner.visibility = View.VISIBLE
-                    btnStarted!!.visibility = View.GONE
                     Handler(Looper.getMainLooper()).postDelayed({
                         // Hide spinner after task is completed
                         loadingSpinner.visibility = View.GONE
@@ -41,7 +39,6 @@ class StartPageActivity:AppCompatActivity() {
                             Constants.qb = leaderboard
                             val intent = Intent(this@StartPageActivity, IntroPageActivity::class.java)
                             startActivity(intent)
-                            finish()
                         }
 
                     } else {

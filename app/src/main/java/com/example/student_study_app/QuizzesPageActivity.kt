@@ -40,7 +40,6 @@ class QuizzesPageActivity:AppCompatActivity() {
         btnLeaderboard?.setOnClickListener{
             val intent = Intent(this, Leaderboards::class.java)
             startActivity(intent)
-            finish()
         }
     }
 
@@ -98,7 +97,7 @@ class QuizzesPageActivity:AppCompatActivity() {
                                 Constants.QuizID = container.id
                                 Constants.qq = leaderboard
                                 startActivity(intent)
-                                finish()
+
                             }
 
                         } else {
@@ -116,6 +115,17 @@ class QuizzesPageActivity:AppCompatActivity() {
             }
         }
 
+    }
+    private var backPressedTime: Long = 0
+    private val backPressInterval = 2000 // Time interval in milliseconds
+
+    override fun onBackPressed() {
+        if (System.currentTimeMillis() - backPressedTime < backPressInterval) {
+            super.onBackPressed() // Exit the activity
+        } else {
+            backPressedTime = System.currentTimeMillis()
+            Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun signOutHandler(){
