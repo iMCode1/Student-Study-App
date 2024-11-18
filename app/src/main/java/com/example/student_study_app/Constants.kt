@@ -1,6 +1,7 @@
 package com.example.student_study_app
 
 import com.example.student_study_app.models.NewUserObject
+import com.example.student_study_app.models.QuizAPI
 import com.example.student_study_app.models.QuizQuestionsAPI
 
 //this page server to provide the app with constants that will be used throughout the application
@@ -15,6 +16,7 @@ object Constants {
         var TimeTaken: Int = 0
         val SCORE: String = "score"
         var qq: ArrayList<QuizQuestionsAPI>? = null
+        var qb: ArrayList<QuizAPI>? = null
          var QuizTime: Int =1
         var QuizID:Int = 0
 }

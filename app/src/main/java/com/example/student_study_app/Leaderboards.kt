@@ -23,7 +23,7 @@ class Leaderboards : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var leaderboardArray: ArrayList<LeaderboardResponse>?=null
     private var quizSelect: Spinner?=null
-    private var quizlist: ArrayList<QuizAPI>? =null
+   // private var quizlist: ArrayList<QuizAPI>? =null
     private var leaderboardLayout: ConstraintLayout?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,10 +37,13 @@ class Leaderboards : AppCompatActivity() {
         quizSelect?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 // Get the selected item
-                val selectedItem = parent.getItemAtPosition(position).toString()
-                showLeaderboard(position)
+                val a = Constants.qb?.get(position)?.id
+                val b = Constants.qb?.get(position)?.quizTitle
+                if (a != null) {
+                    showLeaderboard(a)
+                }
                 // Handle the selection
-                Toast.makeText(this@Leaderboards, "Selected: ${quizlist?.get(position)?.id}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@Leaderboards, "Selected: ${b}", Toast.LENGTH_SHORT).show()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -74,17 +77,8 @@ class Leaderboards : AppCompatActivity() {
     }
 
     fun SpinnerPopulater(){ //Used for populating the spinner
-        lifecycleScope.launch {//fetch all quizzes from api
-            try {
-                val Response = RetrofitInstance.api.GetQuiz()
-                if (Response.isSuccessful){
-                    val quizzes=Response.body()
-                    quizzes.let { quizlist= quizzes}
-                    val adapter = ArrayAdapter(this@Leaderboards, android.R.layout.simple_spinner_item, quizlist!!.map { it.quizTitle })//adapts the list to the spinner only displaying the titles
-                    quizSelect?.adapter = adapter
-                }
-            } catch (e:Exception){  }
-        }
+        val adapter = ArrayAdapter(this@Leaderboards, android.R.layout.simple_spinner_item, Constants.qb!!.map { it.quizTitle })//adapts the list to the spinner only displaying the titles
+        quizSelect?.adapter = adapter
     }
 
 

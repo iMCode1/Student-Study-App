@@ -1,4 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-</selector>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- First bar -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M4,19V9h2v10z" />
+    <!-- Second bar -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M9,19V5h2v14z" />
+    <!-- Third bar -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M14,19V2h2v17z" />
+    <!-- Fourth bar -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M19,19V0h2v19z" />
+</vector>
