@@ -39,6 +39,7 @@ class StartPageActivity:AppCompatActivity() {
                             Constants.qb = leaderboard
                             val intent = Intent(this@StartPageActivity, IntroPageActivity::class.java)
                             startActivity(intent)
+                            finish()
                         }
 
                     } else {
