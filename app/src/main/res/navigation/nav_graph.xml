@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/start_page">
+
+    <fragment
+        android:id="@+id/FirstFragment"
+        android:name="com.example.kayitech.FirstFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_first">
+
+        <action
+            android:id="@+id/action_FirstFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/SecondFragment"
+        android:name="com.example.kayitech.SecondFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_second">
+
+        <action
+            android:id="@+id/action_SecondFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/start_page"
+        android:name="com.example.kayitech.start_page"
+        android:label="fragment_start_page"
+        tools:layout="@layout/fragment_start_page" >
+        <action
+            android:id="@+id/action_start_page_to_intro_page"
+            app:destination="@id/intro_page"
+            app:enterAnim="@android:anim/fade_in" />
+    </fragment>
+    <fragment
+        android:id="@+id/intro_page"
+        android:name="com.example.kayitech.intro_page"
+        android:label="fragment_intro_page"
+        tools:layout="@layout/fragment_intro_page" >
+        <action
+            android:id="@+id/action_intro_page_to_register_page2"
+            app:destination="@id/register_page2"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_intro_page_to_login_page"
+            app:destination="@id/login_page"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/register_page2"
+        android:name="com.example.kayitech.register_page"
+        android:label="fragment_register_page"
+        tools:layout="@layout/fragment_register_page" >
+        <action
+            android:id="@+id/action_register_page2_to_intro_page"
+            app:destination="@id/intro_page"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_register_page2_to_login_page"
+            app:destination="@id/login_page"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/login_page"
+        android:name="com.example.kayitech.login_page"
+        android:label="fragment_login_page"
+        tools:layout="@layout/fragment_login_page" >
+        <action
+            android:id="@+id/action_login_page_to_register_page2"
+            app:destination="@id/register_page2"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_login_page_to_dashboard_page"
+            app:destination="@id/dashboard_page"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/quizzes_page"
+        android:name="com.example.kayitech.quizzes_page"
+        android:label="fragment_quizzes_page"
+        tools:layout="@layout/fragment_quizzes_page" />
+    <fragment
+        android:id="@+id/dashboard_page"
+        android:name="com.example.kayitech.dashboard_page"
+        android:label="fragment_dashboard_page"
+        tools:layout="@layout/fragment_dashboard_page" />
+    <fragment
+        android:id="@+id/flashcards_page"
+        android:name="com.example.kayitech.flashcards_page"
+        android:label="fragment_flashcards_page"
+        tools:layout="@layout/fragment_flashcards_page" />
+    <fragment
+        android:id="@+id/wishlist_page"
+        android:name="com.example.kayitech.wishlist_page"
+        android:label="fragment_wishlist_page"
+        tools:layout="@layout/fragment_wishlist_page" />
+    <fragment
+        android:id="@+id/leaderboard_page"
+        android:name="com.example.kayitech.leaderboard_page"
+        android:label="fragment_leaderboard_page"
+        tools:layout="@layout/fragment_leaderboard_page" />
+    <fragment
+        android:id="@+id/settings_page"
+        android:name="com.example.kayitech.settings_page"
+        android:label="fragment_settings_page"
+        tools:layout="@layout/fragment_settings_page" >
+        <action
+            android:id="@+id/action_settings_page_to_dashboard_page"
+            app:destination="@id/dashboard_page"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_settings_page_to_account_settings_page"
+            app:destination="@id/account_settings_page"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_settings_page_to_notification_settings"
+            app:destination="@id/notification_settings"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_settings_page_to_accessibility_settings"
+            app:destination="@id/accessibility_settings"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/account_settings_page"
+        android:name="com.example.kayitech.account_settings_page"
+        android:label="fragment_account_settings_page"
+        tools:layout="@layout/fragment_account_settings_page" >
+        <action
+            android:id="@+id/action_account_settings_page_to_settings_page"
+            app:destination="@id/settings_page" />
+        <action
+            android:id="@+id/action_account_settings_page_to_settings_page2"
+            app:destination="@id/settings_page"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_account_settings_page_to_accessibility_settings"
+            app:destination="@id/accessibility_settings"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/notification_settings"
+        android:name="com.example.kayitech.notification_settings"
+        android:label="fragment_notification_settings"
+        tools:layout="@layout/fragment_notification_settings" >
+        <action
+            android:id="@+id/action_notification_settings_to_settings_page"
+            app:destination="@id/settings_page"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/accessibility_settings"
+        android:name="com.example.kayitech.accessibility_settings"
+        android:label="fragment_accessibility_settings"
+        tools:layout="@layout/fragment_accessibility_settings" >
+        <action
+            android:id="@+id/action_accessibility_settings_to_settings_page"
+            app:destination="@id/settings_page"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+    </fragment>
+</navigation>

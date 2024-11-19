@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn = "navigation_view">
+
+    <group
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_dashboard"
+            android:title="Dashboard"
+            android:icon="@drawable/baseline_dashboard_24"/>
+
+        <item
+            android:id="@+id/nav_quizzes"
+            android:title="Quizzes"
+            android:icon="@drawable/baseline_quiz_24"/>
+
+        <item
+            android:id="@+id/nav_flashcards"
+            android:title="Flashcards"
+            android:icon="@drawable/baseline_import_contacts_24"/>
+
+        <item
+            android:id="@+id/nav_wishlist"
+            android:title="Wishlist"
+            android:icon="@drawable/baseline_favorite_border_24"/>
+
+        <item
+            android:id="@+id/nav_leaderboard"
+            android:title="Leaderboard"
+            android:icon="@drawable/baseline_leaderboard_24"/>
+
+    </group>
+
+
+</menu>

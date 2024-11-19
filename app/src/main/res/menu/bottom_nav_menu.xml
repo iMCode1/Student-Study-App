@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/homeiconblack"
+        android:title="Home" />
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/settingsiconblack"
+        android:title="Settings" />
+    <item
+        android:id="@+id/updates"
+        android:icon="@drawable/notificationiconblack"
+        android:title="Updates" />
+</menu>
