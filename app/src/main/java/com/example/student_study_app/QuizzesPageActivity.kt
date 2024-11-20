@@ -19,9 +19,10 @@ import kotlinx.coroutines.launch
 
 class QuizzesPageActivity:AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private var quizlist: ArrayList<QuizAPI>? = null;
+    private var quizlist: ArrayList<QuizAPI>? = Constants.qb;
     private var containerLayout: LinearLayout? = null
-   private var btnSignOut: TextView? = null
+    private var btnSignOut: TextView? = null
+    private var btnLeaderboard: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,36 +30,20 @@ class QuizzesPageActivity:AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         containerLayout = findViewById(R.id.quiz_display)
         btnSignOut = findViewById(R.id.item_sign_out)
+        btnLeaderboard = findViewById(R.id.item_leaderbutton)
 
-        lifecycleScope.launch {
-            try {
-                binding.progressBar.visibility = View.VISIBLE
-                val response = RetrofitInstance.api.GetQuiz()
-                if (response.isSuccessful) {
-                    val leaderboard = response.body()
-                    leaderboard?.let {
-                        // Process the leaderboard data
-                        quizlist = leaderboard
-                    }
-                    updateQuiz()
-                    handleItemClick()
-                    signOutHandler()
-                } else {
-                    binding.textError.text = "Error: ${response.code()}"
-                    binding.textError.visibility = View.VISIBLE
-                }
-            } catch (e: Exception) {
-                binding.textError.text = "Error: ${e.message}"
-                binding.textError.visibility = View.VISIBLE
-            } finally {
-                binding.progressBar.visibility = View.GONE
-            }
+        updateQuiz()
+        handleItemClick()
+        btnSignOut?.setOnClickListener {
+            signOutHandler()
         }
-
-
-
+        btnLeaderboard?.setOnClickListener{
+            val intent = Intent(this, Leaderboards::class.java)
+            startActivity(intent)
+        }
     }
-    private  fun updateQuiz(){
+
+    private fun updateQuiz(){
         handleItemClick()
         containerLayout?.removeAllViews()
         for (i in 0 until quizlist!!.size) {
@@ -112,7 +97,7 @@ class QuizzesPageActivity:AppCompatActivity() {
                                 Constants.QuizID = container.id
                                 Constants.qq = leaderboard
                                 startActivity(intent)
-                                finish()
+
                             }
 
                         } else {
@@ -131,11 +116,22 @@ class QuizzesPageActivity:AppCompatActivity() {
         }
 
     }
+    private var backPressedTime: Long = 0
+    private val backPressInterval = 2000 // Time interval in milliseconds
+
+    override fun onBackPressed() {
+        if (System.currentTimeMillis() - backPressedTime < backPressInterval) {
+            super.onBackPressed() // Exit the activity
+        } else {
+            backPressedTime = System.currentTimeMillis()
+            Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     private fun signOutHandler(){
         btnSignOut?.setOnClickListener {
-            Toast.makeText(this, "Clicked:", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, StartPageActivity::class.java)
+            Toast.makeText(this, "Signing out", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, IntroPageActivity::class.java)
             AccoutnValidationObject.SignOut(this, "TestUsername.txt")
             startActivity(intent)
             finish()

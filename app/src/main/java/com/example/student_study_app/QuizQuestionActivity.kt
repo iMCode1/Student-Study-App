@@ -19,6 +19,7 @@ import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.os.CountDownTimer
 import android.view.animation.AccelerateDecelerateInterpolator
+import androidx.appcompat.app.AlertDialog
 import kotlinx.coroutines.launch
 
 class QuizQuestionActivity:AppCompatActivity() {
@@ -132,7 +133,18 @@ class QuizQuestionActivity:AppCompatActivity() {
         }
 
     }
-    //@SuppressLint("SetTextI18n")
+    override fun onBackPressed() {
+        AlertDialog.Builder(this)
+            .setTitle("Confirm Exit")
+            .setMessage("Are you sure you want to go back?")
+            .setPositiveButton("Yes") { _, _ ->
+                timer.cancel()
+                super.onBackPressed() // Exit the activity
+            }
+            .setNegativeButton("No", null) // Dismiss the dialog
+            .show()
+    }
+
     private fun updateQuestion() {//This function updates the onscreen quiz options
         defaultAlternativesView()
         progressBar?.max = questionsList?.size!!
